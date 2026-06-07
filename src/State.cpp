@@ -14,6 +14,7 @@ float KD_ROUES = 0.45f;
 float rayonCercleCm = 14.0f;
 float distanceCmdMm = 200.0f;
 float angleCmdDeg = 90.0f;
+float capNordCibleDeg = CAP_NORD_CIBLE_DEG_DEFAUT;
 
 const char* ssid = "Drawbot";
 const char* password = "drawbot123";

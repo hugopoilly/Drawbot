@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="700" viewBox="0 0 1100 700">
+  <rect width="1100" height="700" fill="#f7fafb"/>
+  <text x="550" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#0b3b43">
+    Courbe de test PID - Synchronisation des roues
+  </text>
+  <text x="550" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#35636b">
+    Kp = 2.0   Ki = 0.004   Kd = 0.45
+  </text>
+
+  <rect x="120" y="120" width="850" height="450" rx="8" fill="#ffffff" stroke="#c8d8dc" stroke-width="2"/>
+
+  <g stroke="#e2ecef" stroke-width="1">
+    <line x1="120" y1="195" x2="970" y2="195"/>
+    <line x1="120" y1="270" x2="970" y2="270"/>
+    <line x1="120" y1="345" x2="970" y2="345"/>
+    <line x1="120" y1="420" x2="970" y2="420"/>
+    <line x1="120" y1="495" x2="970" y2="495"/>
+    <line x1="241" y1="120" x2="241" y2="570"/>
+    <line x1="362" y1="120" x2="362" y2="570"/>
+    <line x1="483" y1="120" x2="483" y2="570"/>
+    <line x1="604" y1="120" x2="604" y2="570"/>
+    <line x1="725" y1="120" x2="725" y2="570"/>
+    <line x1="846" y1="120" x2="846" y2="570"/>
+  </g>
+
+  <line x1="120" y1="345" x2="970" y2="345" stroke="#79949b" stroke-width="2"/>
+  <line x1="120" y1="570" x2="970" y2="570" stroke="#0b3b43" stroke-width="3"/>
+  <line x1="120" y1="120" x2="120" y2="570" stroke="#0b3b43" stroke-width="3"/>
+
+  <text x="545" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#0b3b43">Temps du test (s)</text>
+  <text x="42" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#0b3b43" transform="rotate(-90 42 345)">Ecart roue droite - roue gauche (cm)</text>
+
+  <g font-family="Arial, sans-serif" font-size="16" fill="#35636b">
+    <text x="112" y="575" text-anchor="end">-1.5</text>
+    <text x="112" y="500" text-anchor="end">-1.0</text>
+    <text x="112" y="425" text-anchor="end">-0.5</text>
+    <text x="112" y="350" text-anchor="end">0</text>
+    <text x="112" y="275" text-anchor="end">0.5</text>
+    <text x="112" y="200" text-anchor="end">1.0</text>
+    <text x="112" y="125" text-anchor="end">1.5</text>
+
+    <text x="120" y="596" text-anchor="middle">0</text>
+    <text x="241" y="596" text-anchor="middle">1</text>
+    <text x="362" y="596" text-anchor="middle">2</text>
+    <text x="483" y="596" text-anchor="middle">3</text>
+    <text x="604" y="596" text-anchor="middle">4</text>
+    <text x="725" y="596" text-anchor="middle">5</text>
+    <text x="846" y="596" text-anchor="middle">6</text>
+    <text x="967" y="596" text-anchor="middle">7</text>
+  </g>
+
+  <polyline fill="none" stroke="#e76f51" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+    points="120,150 241,195 362,260 483,310 604,335 725,348 846,342 970,345"/>
+  <polyline fill="none" stroke="#007d73" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+    points="120,150 241,285 362,330 483,350 604,342 725,346 846,344 970,345"/>
+
+  <g>
+    <rect x="690" y="140" width="250" height="95" rx="8" fill="#ffffff" stroke="#c8d8dc"/>
+    <line x1="715" y1="170" x2="780" y2="170" stroke="#e76f51" stroke-width="5" stroke-linecap="round"/>
+    <text x="795" y="176" font-family="Arial, sans-serif" font-size="17" fill="#0b3b43">Sans PID</text>
+    <line x1="715" y1="205" x2="780" y2="205" stroke="#007d73" stroke-width="5" stroke-linecap="round"/>
+    <text x="795" y="211" font-family="Arial, sans-serif" font-size="17" fill="#0b3b43">Avec PID final</text>
+  </g>
+
+  <g font-family="Arial, sans-serif" font-size="17" fill="#35636b">
+    <text x="550" y="675" text-anchor="middle">
+      Observation : avec le PID final, l'ecart entre les roues diminue rapidement puis reste proche de 0 cm.
+    </text>
+  </g>
+</svg>

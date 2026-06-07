@@ -194,6 +194,23 @@ void avancerCalibrationPID(float distanceMm) {
   }
 
   freiner();
+
+  Serial.println("--------- VALEURS MESUREES ---------");
+  Serial.print("Impulsions mesurees roue droite : ");
+  Serial.println(compteurD);
+  Serial.print("Impulsions mesurees roue gauche : ");
+  Serial.println(compteurG);
+  Serial.print("Distance mesuree roue droite : ");
+  Serial.print(compteurD * MM_PAR_IMP_D / 10.0f, 2);
+  Serial.println(" cm");
+  Serial.print("Distance mesuree roue gauche : ");
+  Serial.print(compteurG * MM_PAR_IMP_G / 10.0f, 2);
+  Serial.println(" cm");
+  Serial.print("Ecart mesure D-G : ");
+  Serial.print((compteurD * MM_PAR_IMP_D - compteurG * MM_PAR_IMP_G) / 10.0f, 2);
+  Serial.println(" cm");
+  Serial.println("FIN AVANCER CALIBRATION PID");
+  Serial.println("------------------------------------");
 }
 
 void reculerCalibrationPID(float distanceMm) {
@@ -306,6 +323,26 @@ void tournerCalibrationPID(float angleDeg) {
   }
 
   freiner();
+
+  Serial.println("--------- VALEURS MESUREES ---------");
+  Serial.print("Angle demande : ");
+  Serial.print(angleDeg);
+  Serial.println(" deg");
+  Serial.print("Impulsions mesurees roue droite : ");
+  Serial.println(compteurD);
+  Serial.print("Impulsions mesurees roue gauche : ");
+  Serial.println(compteurG);
+  Serial.print("Distance mesuree roue droite : ");
+  Serial.print(compteurD * MM_PAR_IMP_D / 10.0f, 2);
+  Serial.println(" cm");
+  Serial.print("Distance mesuree roue gauche : ");
+  Serial.print(compteurG * MM_PAR_IMP_G / 10.0f, 2);
+  Serial.println(" cm");
+  Serial.print("Ecart mesure D-G : ");
+  Serial.print((compteurD * MM_PAR_IMP_D - compteurG * MM_PAR_IMP_G) / 10.0f, 2);
+  Serial.println(" cm");
+  Serial.println("FIN TOURNER CALIBRATION PID");
+  Serial.println("------------------------------------");
 }
 
 // ============================================================

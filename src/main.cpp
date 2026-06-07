@@ -1,5 +1,61 @@
 #include "Robot.h"
 
+void afficherDebutTestSerie(const char* nomTest, const char* consigne) {
+  Serial.println();
+  Serial.println("========================================");
+  Serial.print("DEBUT ");
+  Serial.println(nomTest);
+  Serial.print("Consigne : ");
+  Serial.println(consigne);
+  Serial.println("Mesures encodeurs en cours...");
+  Serial.println("========================================");
+}
+
+void afficherBilanTestSerie(const char* nomTest, long departD, long departG) {
+  long deltaD = totalCompteurD - departD;
+  long deltaG = totalCompteurG - departG;
+  long impulsionsD = labs(deltaD);
+  long impulsionsG = labs(deltaG);
+  float distanceDcm = impulsionsD * MM_PAR_IMP_D / 10.0f;
+  float distanceGcm = impulsionsG * MM_PAR_IMP_G / 10.0f;
+  float ecartCm = distanceDcm - distanceGcm;
+
+  Serial.println("--------- VALEURS MESUREES ---------");
+  Serial.print("Test : ");
+  Serial.println(nomTest);
+  Serial.print("Compteur roue droite avant : ");
+  Serial.println(departD);
+  Serial.print("Compteur roue droite apres : ");
+  Serial.println(totalCompteurD);
+  Serial.print("Compteur roue gauche avant : ");
+  Serial.println(departG);
+  Serial.print("Compteur roue gauche apres : ");
+  Serial.println(totalCompteurG);
+  Serial.print("Impulsions mesurees roue droite : ");
+  Serial.print(impulsionsD);
+  Serial.print(" (signe : ");
+  Serial.print(deltaD);
+  Serial.println(")");
+  Serial.print("Impulsions mesurees roue gauche : ");
+  Serial.print(impulsionsG);
+  Serial.print(" (signe : ");
+  Serial.print(deltaG);
+  Serial.println(")");
+  Serial.print("Distance mesuree roue droite : ");
+  Serial.print(distanceDcm, 2);
+  Serial.println(" cm");
+  Serial.print("Distance mesuree roue gauche : ");
+  Serial.print(distanceGcm, 2);
+  Serial.println(" cm");
+  Serial.print("Ecart mesure D-G : ");
+  Serial.print(ecartCm, 2);
+  Serial.println(" cm");
+  Serial.print("FIN ");
+  Serial.println(nomTest);
+  Serial.println("------------------------------------");
+  Serial.println();
+}
+
 // ============================================================
 // Initialisation materielle
 // ============================================================
@@ -53,6 +109,7 @@ void setup() {
   Serial.println(WiFi.softAPIP());
 
   // Routes principales de l'interface web du robot.
+  serveur.on("/drawbot-bg.jpg",                 handle_background);
   serveur.on("/",                               afficher_page);
   serveur.on("/seq1",                           afficher_seq1);
   serveur.on("/seq1/robot",                     handle_seq1_robot);
@@ -60,6 +117,10 @@ void setup() {
   serveur.on("/seq2",                           afficher_seq2);
   serveur.on("/seq2/lancer",                    handle_seq2_lancer);
   serveur.on("/seq3",                           afficher_seq3);
+  serveur.on("/seq3/lancer",                    handle_seq3_lancer);
+  serveur.on("/seq3/memoriser",                 handle_seq3_memoriser);
+  serveur.on("/seq3/testcap",                   handle_seq3_test_cap);
+  serveur.on("/seq3/data",                      handle_seq3_data);
   serveur.on("/stop",                           handle_stop);
 
   // Routes de calibration et de commandes manuelles.
@@ -102,21 +163,44 @@ void loop() {
       break;
     case 2:
       actionAFaire = 0;
-      avancerCalibrationPID(200.0f);
+      afficherDebutTestSerie("TEST DEPLACEMENT 20 CM", "avancer de 20 cm");
+      {
+        long departD = totalCompteurD;
+        long departG = totalCompteurG;
+        avancerCalibrationPID(200.0f);
+        afficherBilanTestSerie("TEST DEPLACEMENT 20 CM", departD, departG);
+      }
       break;
     case 3:
       actionAFaire = 0;
-      Serial.println("=== TEST 40cm (2x20cm) ===");
-      avancerCalibrationPID(200.0f);
-      avancerCalibrationPID(200.0f);
+      afficherDebutTestSerie("TEST DEPLACEMENT 40 CM", "avancer de 40 cm en deux segments de 20 cm");
+      {
+        long departD = totalCompteurD;
+        long departG = totalCompteurG;
+        avancerCalibrationPID(200.0f);
+        avancerCalibrationPID(200.0f);
+        afficherBilanTestSerie("TEST DEPLACEMENT 40 CM", departD, departG);
+      }
       break;
     case 4:
       actionAFaire = 0;
-      tournerCalibrationPID(90.0f);
+      afficherDebutTestSerie("TEST ROTATION 90 GAUCHE", "rotation de 90 degres a gauche");
+      {
+        long departD = totalCompteurD;
+        long departG = totalCompteurG;
+        tournerCalibrationPID(90.0f);
+        afficherBilanTestSerie("TEST ROTATION 90 GAUCHE", departD, departG);
+      }
       break;
     case 5:
       actionAFaire = 0;
-      tournerCalibrationPID(-90.0f);
+      afficherDebutTestSerie("TEST ROTATION 90 DROITE", "rotation de 90 degres a droite");
+      {
+        long departD = totalCompteurD;
+        long departG = totalCompteurG;
+        tournerCalibrationPID(-90.0f);
+        afficherBilanTestSerie("TEST ROTATION 90 DROITE", departD, departG);
+      }
       break;
     case 6:
       actionAFaire = 0;
@@ -169,6 +253,10 @@ void loop() {
       dernierTotalG = 0;
       dernierTotalD = 0;
       Serial.println("Odometrie remise a zero");
+      break;
+    case 16:
+      actionAFaire = 0;
+      dessinerFlecheNord();
       break;
     default:
       break;

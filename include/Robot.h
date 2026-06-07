@@ -42,6 +42,9 @@
 #define ENTRAXE_CERCLE_MM 90.0f
 #define ENTRAXE_REEL_MM 90.0f
 #define OFFSET_STYLO_MM 130.0f
+#define CAP_NORD_CIBLE_DEG_DEFAUT 0.0f
+#define TOLERANCE_CAP_NORD_DEG 0.5f
+#define SENS_CORRECTION_NORD -1.0f
 
 extern float MM_PAR_IMP_D;
 extern float MM_PAR_IMP_G;
@@ -52,6 +55,7 @@ extern float KD_ROUES;
 extern float rayonCercleCm;
 extern float distanceCmdMm;
 extern float angleCmdDeg;
+extern float capNordCibleDeg;
 
 // ============================================================
 // WiFi et serveur web
@@ -74,7 +78,7 @@ extern volatile int actionAFaire;
 // Codes d'action lances depuis l'interface web.
 // 0 = rien | 1 = escalier robot | 2-6 = tests calibration
 // 7 = escalier stylo | 8-9 = rotations stylo | 10 = cercle
-// 11-14 = commandes libres | 15 = remise a zero odometrie
+// 11-14 = commandes libres | 15 = remise a zero odometrie | 16 = fleche Nord
 
 // ============================================================
 // Capteurs et odometrie
@@ -138,6 +142,7 @@ void mouvementRouesMm(float distD_mm, float distG_mm, int vitesse);
 // Interface web
 // ============================================================
 String cssCommun();
+void handle_background();
 void afficher_page();
 void afficher_seq1();
 void afficher_calibration();
@@ -162,6 +167,10 @@ void handle_cmd_tourner_gauche();
 void handle_cmd_tourner_droite();
 void handle_reset_odometrie();
 void handle_seq2_lancer();
+void handle_seq3_lancer();
+void handle_seq3_memoriser();
+void handle_seq3_data();
+void handle_seq3_test_cap();
 void handle_stop();
 
 // ============================================================
@@ -171,6 +180,9 @@ void sequenceEscalier();
 void traitStyloGauche(float longueur_mm);
 void traitStyloDroite(float longueur_mm);
 void sequenceEscalierStylo();
+float lireCapMoyenDeg();
+void orienterRobotVersNord();
+void dessinerFlecheNord();
 
 // ============================================================
 // Cercle

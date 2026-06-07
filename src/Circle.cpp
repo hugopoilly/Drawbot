@@ -13,15 +13,15 @@ float rayonRotationCalibre(float rayonCm) {
   if (rayonCm <= 14.0f) return 40.0f;
   if (rayonCm <= 16.0f) return 49.2f;
   if (rayonCm <= 18.0f) return 57.0f;
-  return 68.0f;
+  return 64.5f;
 }
 
 float gainFermetureCalibre(float rayonCm) {
   // Table finale des gains de fermeture pour les 4 cercles calibres.
   if (rayonCm <= 14.0f) return 0.9447f;
-  if (rayonCm <= 16.0f) return 1.428f;
+  if (rayonCm <= 16.0f) return 1.360f;
   if (rayonCm <= 18.0f) return 1.635f;
-  return 1.80f;
+  return 1.68f;
 }
 
 void mouvementRouesCercle(float distD_mm, float distG_mm, int vitesse, float compensationMm, bool arretFin) {
